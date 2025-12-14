@@ -72,11 +72,17 @@ const mockTasks: Task[] = [
   },
 ]
 
-export function TaskBoard() {
+interface TaskBoardProps {
+  tasks: Task[]
+}
+
+export function TaskBoard({ tasks }: TaskBoardProps) {
+  const allTasks = [...mockTasks, ...tasks]
+
   const columns = {
-    todo: mockTasks.filter((t) => t.status === "todo"),
-    "in-progress": mockTasks.filter((t) => t.status === "in-progress"),
-    done: mockTasks.filter((t) => t.status === "done"),
+    todo: allTasks.filter((t) => t.status === "todo"),
+    "in-progress": allTasks.filter((t) => t.status === "in-progress"),
+    done: allTasks.filter((t) => t.status === "done"),
   }
 
   return (
@@ -101,7 +107,7 @@ export function TaskBoard() {
         {/* Columna: En Progreso */}
         <div className="bg-muted/30 rounded-xl p-4">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+            <div className="w-3 h-3 rounded-full bg-pink-400"></div>
             <h2 className="font-semibold text-foreground">En Progreso</h2>
             <span className="ml-auto text-xs font-medium text-muted-foreground bg-muted px-2 py-1 rounded">
               {columns["in-progress"].length}
@@ -117,7 +123,7 @@ export function TaskBoard() {
         {/* Columna: Completadas */}
         <div className="bg-muted/30 rounded-xl p-4">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
+            <div className="w-3 h-3 rounded-full bg-green-400"></div>
             <h2 className="font-semibold text-foreground">Completadas</h2>
             <span className="ml-auto text-xs font-medium text-muted-foreground bg-muted px-2 py-1 rounded">
               {columns.done.length}

@@ -5,10 +5,21 @@ import { Sidebar } from "@/components/sidebar"
 import { TaskHeader } from "@/components/task-header"
 import { TaskBoard } from "@/components/task-board"
 import { AddTaskModal } from "@/components/add-task-modal"
+import type { Task } from "@/types/task" // Assuming Task type is defined somewhere
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [tasks, setTasks] = useState<Task[]>([])
+
+  const handleAddTask = (newTask: Omit<Task, "id">) => {
+    const task: Task = {
+      ...newTask,
+      id: Date.now().toString(),
+    }
+    setTasks((prevTasks) => [...prevTasks, task])
+    setIsModalOpen(false)
+  }
 
   return (
     <div className="flex h-screen bg-background">
@@ -18,11 +29,11 @@ export default function Home() {
         <TaskHeader onAddTask={() => setIsModalOpen(true)} />
 
         <div className="flex-1 overflow-auto">
-          <TaskBoard />
+          <TaskBoard tasks={tasks} />
         </div>
       </div>
 
-      <AddTaskModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <AddTaskModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onAddTask={handleAddTask} />
     </div>
   )
 }
