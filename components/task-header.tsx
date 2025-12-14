@@ -1,7 +1,8 @@
 "use client"
 
-import { Search, Bell, Settings, User } from "lucide-react"
+import { Search, Bell, Settings, User, Plus } from "lucide-react"
 import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 
 interface TaskHeaderProps {
   onAddTask: () => void
@@ -17,6 +18,14 @@ export function TaskHeader({ onAddTask }: TaskHeaderProps) {
         </div>
 
         <div className="flex items-center gap-3">
+          <Button
+            onClick={onAddTask}
+            className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-2"
+          >
+            <Plus size={18} />
+            <span>Nueva Tarea</span>
+          </Button>
+
           <button className="p-2 hover:bg-muted rounded-lg transition">
             <Bell size={20} className="text-foreground" />
           </button>

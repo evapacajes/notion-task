@@ -5,7 +5,7 @@ import { Sidebar } from "@/components/sidebar"
 import { TaskHeader } from "@/components/task-header"
 import { TaskBoard } from "@/components/task-board"
 import { AddTaskModal } from "@/components/add-task-modal"
-import type { Task } from "@/types/task" // Assuming Task type is defined somewhere
+import type { Task } from "@/types/task"
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -17,6 +17,7 @@ export default function Home() {
       ...newTask,
       id: Date.now().toString(),
     }
+    console.log("[v0] Nueva tarea creada:", task)
     setTasks((prevTasks) => [...prevTasks, task])
     setIsModalOpen(false)
   }

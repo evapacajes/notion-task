@@ -1,12 +1,11 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import type { Task } from "./task-board"
+import type { Task } from "@/types/task"
 
 interface AddTaskModalProps {
   isOpen: boolean
@@ -30,6 +29,7 @@ export function AddTaskModal({ isOpen, onClose, onAddTask }: AddTaskModalProps) 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    console.log("[v0] Formulario enviado con datos:", formData)
     onAddTask({
       title: formData.title,
       description: formData.description,
@@ -114,7 +114,7 @@ export function AddTaskModal({ isOpen, onClose, onAddTask }: AddTaskModalProps) 
             <select
               value={formData.status}
               onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
-              className="w-full px-3 py-2 bg-input border border-border rounded-lg text-foreground"
+              className="w-full px-3 py-2 bg-input border-border rounded-lg text-foreground"
             >
               <option value="todo">Por Hacer</option>
               <option value="in-progress">En Progreso</option>
